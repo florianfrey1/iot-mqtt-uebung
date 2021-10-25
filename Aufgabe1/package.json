@@ -1,0 +1,15 @@
+{
+  "name": "aufgabe1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "publisher.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^4.2.8",
+    "mqtt-packet": "^7.1.1"
+  }
+}
