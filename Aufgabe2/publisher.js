@@ -1,6 +1,8 @@
 import mqtt from 'mqtt'
 import batteryLevel from 'battery-level'
 import osUtils from 'node-os-utils'
+import DateTime from './datetime.js'
+
 const clientId = Date.now().toString(36)
 const client = mqtt.connect('mqtt://broker.hivemq.com', {
     clientId: clientId,
@@ -13,9 +15,8 @@ client.on('connect', async () => {
         const cpuUsage = await osUtils.cpu.usage()
         const memory = await osUtils.mem.free()
 
-        // iotcourse/T3INF4902
-        client.publish('iotcourse/internetderdingse42', JSON.stringify({
-            'ts_meas': (new Date()).toISOString(),
+        client.publish('iotcourse/T3INF4902', JSON.stringify({
+            'ts_meas': DateTime.fromDate(new Date()),
             'id': clientId,
             'temp': Math.random().toFixed(4),
             'battery': currentBatteryLevel,

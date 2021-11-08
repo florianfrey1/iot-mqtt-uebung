@@ -1,15 +1,32 @@
-import sqlite3 from 'sqlite3'
-import { open } from 'sqlite'
+import mysql from 'mysql'
 
 export default class Database {
-    static #instance
-    static async getInstance() {
-        if (!Database.#instance)
-            Database.#instance = await open({
-                filename: './database.db',
-                driver: sqlite3.Database
+    #connection
+    constructor(host, user, password, database) {
+        return new Promise((res, rej) => {
+            this.#connection = mysql.createConnection({
+                host: host,
+                user: user,
+                password: password,
+                database: database
             })
 
-        return Database.#instance
+            this.#connection.connect(err => {
+                if (err)
+                    rej(err)
+
+                res(this)
+            })
+        })
+    }
+    query(sql) {
+        return new Promise((res, rej) => {
+            this.#connection.query(sql, (err, result) => {
+                if (err)
+                    rej(err)
+
+                res(result)
+            })
+        })
     }
 }
