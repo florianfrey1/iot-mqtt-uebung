@@ -14,7 +14,6 @@ await database.query(
             payload JSON
         )`
 )
-await database.query('TRUNCATE TABLE measurements;')
 
 client.on('connect', () => {
     client.subscribe('iotcourse/T3INF4902', { qos: 1 })
